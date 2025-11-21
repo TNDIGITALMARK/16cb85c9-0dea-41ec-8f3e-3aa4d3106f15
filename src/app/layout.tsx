@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Elegant Flora Boutique",
-  description: "Beautiful AI-powered website creation platform",
+  title: "Shop99Detailing - Premium Car Detailing Services",
+  description: "Professional automotive detailing services delivering showroom quality results. Paint correction, ceramic coating, and interior detailing.",
 };
 
 export default function RootLayout({

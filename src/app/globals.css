@@ -1,59 +1,71 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* ============================================
+   SHOP99DETAILING DESIGN SYSTEM
+   Pixel-perfect replication from reference design
+   ============================================ */
 
 :root {
-  /* Pure white background with crisp black text */
-  --background: 0 0% 100%;
-  --foreground: 0 0% 0%;
-
-  /* Clean white cards with black text */
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 0%;
-
-  /* Popovers with white background */
-  --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 0%;
-
-  /* Primary: Black with white text */
-  --primary: 0 0% 0%;
+  /* === SHOP99DETAILING COLOR PALETTE === */
+  /* Primary Navy Dark: #1A2332 -> HSL(214, 28%, 15%) */
+  --primary: 214 28% 15%;
   --primary-foreground: 0 0% 100%;
 
-  /* Secondary: Light gray background with black text */
-  --secondary: 0 0% 97%;
-  --secondary-foreground: 0 0% 0%;
+  /* Electric Blue Accent: #1E6FFF -> HSL(219, 100%, 56%) */
+  --accent: 219 100% 56%;
+  --accent-foreground: 0 0% 100%;
 
-  /* Muted: Subtle gray with darker text */
+  /* Light Background: #F8F9FA -> HSL(210, 17%, 98%) */
+  --background: 210 17% 98%;
+  --foreground: 0 0% 13%;  /* #212529 */
+
+  /* Cards: Light on light background */
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 13%;
+
+  /* Secondary: Medium gray */
+  --secondary: 0 0% 42%;  /* #6C757D */
+  --secondary-foreground: 0 0% 100%;
+
+  /* Muted text */
   --muted: 0 0% 96%;
-  --muted-foreground: 0 0% 40%;
+  --muted-foreground: 0 0% 42%;
 
-  /* Accent: Light gray */
-  --accent: 0 0% 96%;
-  --accent-foreground: 0 0% 0%;
+  /* Popovers */
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 13%;
 
-  /* Destructive: Clean red */
+  /* Destructive states */
   --destructive: 0 70% 50%;
   --destructive-foreground: 0 0% 100%;
 
-  /* Borders: Subtle gray */
+  /* Borders: Subtle */
   --border: 0 0% 90%;
   --input: 0 0% 90%;
-  --ring: 0 0% 0%;
+  --ring: 219 100% 56%;
 
-  /* Minimal rounded corners */
-  --radius: 0.375rem;
+  /* Border Radius */
+  --radius: 0.5rem;  /* 8px */
+  --radius-lg: 0.75rem;  /* 12px */
 
-  /* Sidebar: Clean white with black text */
-  --sidebar-background: 0 0% 100%;
-  --sidebar-foreground: 0 0% 0%;
-  --sidebar-primary: 0 0% 0%;
+  /* === SHOP99DETAILING CUSTOM PROPERTIES === */
+  --navy-dark: 214 28% 15%;  /* #1A2332 */
+  --electric-blue: 219 100% 56%;  /* #1E6FFF */
+  --blue-hover: 219 100% 48%;  /* #0D5FE8 */
+
+  /* Typography Variables */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Sidebar: Dark navy */
+  --sidebar-background: 214 28% 15%;
+  --sidebar-foreground: 0 0% 100%;
+  --sidebar-primary: 219 100% 56%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 0 0% 96%;
-  --sidebar-accent-foreground: 0 0% 0%;
-  --sidebar-border: 0 0% 90%;
-  --sidebar-ring: 0 0% 0%;
+  --sidebar-accent: 214 28% 20%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-border: 214 28% 20%;
+  --sidebar-ring: 219 100% 56%;
 }
 
 .dark {
@@ -168,28 +180,127 @@ All colors MUST be HSL.
   border-color: hsl(var(--border));
 }
 
+/* === GLOBAL RESETS & BASE STYLES === */
+* {
+  box-sizing: border-box;
+  border-color: hsl(var(--border));
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
 body {
+  margin: 0;
+  padding: 0;
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
+  font-family: var(--font-primary);
+  font-size: 16px;
+  line-height: 1.6;
   font-feature-settings: "rlig" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
-/* Minimal, clean typography */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
-  letter-spacing: -0.025em;
+/* === TYPOGRAPHY SCALE === */
+/* Hero Heading */
+h1 {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 24px 0;
   color: hsl(var(--foreground));
 }
 
-/* Clean button styles */
-button {
-  font-weight: 500;
+/* Section Heading */
+h2 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 20px 0;
+  color: hsl(var(--foreground));
 }
 
-/* Subtle shadows for depth */
+/* Subsection Heading */
+h3 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 16px 0;
+  color: hsl(var(--foreground));
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0 0 12px 0;
+}
+
+h5 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0 0 12px 0;
+}
+
+h6 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0 0 12px 0;
+}
+
+p {
+  margin: 0 0 16px 0;
+  line-height: 1.6;
+}
+
+a {
+  color: hsl(var(--accent));
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: hsl(var(--blue-hover));
+}
+
+/* === BUTTON DEFAULTS === */
+button {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+/* === FORM ELEMENT DEFAULTS === */
+input, textarea, select {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  padding: 14px 16px;
+  border: 1px solid hsl(var(--border));
+  border-radius: 6px;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  transition: border-color 0.2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: hsl(var(--accent));
+  box-shadow: 0 0 0 3px hsl(var(--accent) / 0.1);
+}
+
+/* === SHOP99DETAILING SHADOW SYSTEM === */
 .shadow-sm {
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
@@ -200,4 +311,35 @@ button {
 
 .shadow-md {
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.shadow-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.shadow-card-hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.shadow-button {
+  box-shadow: 0 4px 12px rgba(30, 111, 255, 0.25);
+}
+
+.shadow-header {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* === MOBILE RESPONSIVE === */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 36px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
 }
