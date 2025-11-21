@@ -21,13 +21,13 @@ interface ZyloProviderProps {
  * - Cleans up timers on unmount
  */
 export function ZyloProvider({ children }: ZyloProviderProps) {
-  const [client] = useState(() => {
+  const [client] = useState<ZyloClient | null>(() => {
     try {
       const config = getZyloConfig();
       return new ZyloClient(config);
     } catch (error) {
       console.error('Failed to initialize Zylo Client:', error);
-      throw error;
+      return null;
     }
   });
 
@@ -41,6 +41,13 @@ export function ZyloProvider({ children }: ZyloProviderProps) {
   });
 
   useEffect(() => {
+    // Skip if client failed to initialize
+    if (!client) {
+      setIsLoading(false);
+      setError(new Error('Zylo Client failed to initialize'));
+      return;
+    }
+
     // Boot the client on mount
     client
       .boot()
@@ -63,6 +70,8 @@ export function ZyloProvider({ children }: ZyloProviderProps) {
 
   // Update token status periodically for debugging
   useEffect(() => {
+    if (!client) return;
+
     const interval = setInterval(() => {
       setTokenStatus(client.getTokenStatus());
     }, 10000); // Every 10 seconds
@@ -70,34 +79,12 @@ export function ZyloProvider({ children }: ZyloProviderProps) {
     return () => clearInterval(interval);
   }, [client]);
 
-  // Show error state
+  // Log error but continue rendering (Zylo is optional for the app to function)
   if (error) {
-    return (
-      <div
-        style={{
-          padding: '20px',
-          margin: '20px',
-          backgroundColor: '#fee',
-          border: '1px solid #fcc',
-          borderRadius: '8px',
-          color: '#c33',
-        }}
-      >
-        <h2 style={{ margin: '0 0 10px 0', fontSize: '18px', fontWeight: 'bold' }}>
-          Zylo Client Error
-        </h2>
-        <p style={{ margin: '0', fontSize: '14px' }}>{error.message}</p>
-        <details style={{ marginTop: '10px', fontSize: '12px' }}>
-          <summary style={{ cursor: 'pointer' }}>Stack Trace</summary>
-          <pre style={{ marginTop: '10px', fontSize: '11px', overflow: 'auto' }}>
-            {error.stack}
-          </pre>
-        </details>
-      </div>
-    );
+    console.warn('⚠️ Zylo Provider: Failed to initialize, continuing without Zylo features', error);
   }
 
-  // Provide client to children
+  // Provide client to children (even if there's an error, allow app to render)
   return (
     <ZyloContext.Provider value={{ client, isLoading, error, tokenStatus }}>
       {children}
